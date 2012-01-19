@@ -263,7 +263,11 @@ Boolean WISInput::openFiles(UsageEnvironment& env) {
 Boolean WISInput::initALSA(UsageEnvironment& env) {
   do {
     int arg;
+#ifdef WORDS_BIGENDIAN
+    arg = AFMT_S16_BE;
+#else
     arg = AFMT_S16_LE;
+#endif
     if (ioctl(fOurAudioFileNo, SNDCTL_DSP_SETFMT, &arg) < 0) {
       printErr(env, "SNDCTL_DSP_SETFMT");
       break;

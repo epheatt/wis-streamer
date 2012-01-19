@@ -72,6 +72,10 @@ extern portNumBits audioRTPPortNum;
 extern void checkArgs(UsageEnvironment& env, int argc, char** argv);
 extern void reclaimArgs();
 
+#ifdef WORDS_BIGENDIAN
+#define PCM_AUDIO_IS_LITTLE_ENDIAN 0
+#else
 #define PCM_AUDIO_IS_LITTLE_ENDIAN 1
+#endif
 
 #endif
