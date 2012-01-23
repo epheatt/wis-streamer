@@ -204,7 +204,11 @@ Boolean WISInput::openFiles(UsageEnvironment& env) {
     char line[128];
     while (fgets(line, sizeof line, file) != NULL) {
       int m, n;
-      if (sscanf(line, "%d: [%u-%*u]: digital audio\n", &m, &n) != 2) continue;
+      char *c;
+      if ((c = strrchr(line, ':')) == NULL ||
+          strcmp(c, ": digital audio\n") ||
+          sscanf(line, "%d: [%u-%*u]:", &m, &n) != 2)
+            continue;
       if (n == i) {
 	minor = m;
 	break;
